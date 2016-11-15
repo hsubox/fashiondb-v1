@@ -4,7 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
-import TopNavBar from './components/TopNavBar'
+import TopNavBar from './components/TopNavBar';
+import LoginForm from './components/LoginForm';
 import './App.css';
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <TopNavBar />
+          <LoginForm />
         </div>
       </Provider>
     );
