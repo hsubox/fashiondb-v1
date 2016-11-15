@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { Router, Route, browserHistory } from 'react-router';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
-import TopNavBar from './components/TopNavBar';
+import MainLayout from './components/MainLayout';
+import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import './App.css';
 
@@ -23,13 +25,14 @@ class App extends Component {
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-
     return (
       <Provider store={store}>
-        <div className="App">
-          <TopNavBar />
-          <LoginForm />
-        </div>
+        <Router history={browserHistory}>
+          <Route component={MainLayout}>
+            <Route path="/" component={Home} />
+            <Route path="/login" component={LoginForm} />
+          </Route>
+        </Router>
       </Provider>
     );
   }

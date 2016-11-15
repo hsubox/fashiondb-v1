@@ -4,7 +4,10 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER_BEGIN
+  LOGIN_USER_BEGIN,
+  LOGOUT_USER_SUCCESS,
+  LOGOUT_USER_FAIL,
+  LOGOUT_USER_BEGIN
 } from './types';
 
 export const emailChanged = (text) => {
@@ -46,4 +49,30 @@ export const loginUser = ({ email, password }) => {
           .catch(() => loginUserFail(dispatch));
       });
   };
+};
+
+const logoutUserFail = (dispatch) => {
+  dispatch({
+    type: LOGOUT_USER_FAIL
+  });
+};
+
+const logoutUserSuccess = (dispatch) => {
+  dispatch({
+    type: LOGOUT_USER_SUCCESS
+  });
+};
+
+export const logoutUser = ({ email, password}) => {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_USER_BEGIN });
+
+    firebase.auth().signOut()
+      .then(() => {
+        logoutUserSuccess(dispatch);
+      })
+      .catch(() => {
+        logoutUserFail(dispatch);
+      });
+  }
 };
