@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import './LoginForm.css';
 import { loginFormUpdate, loginUser } from '../actions';
 import { InputTextField } from './common';
@@ -22,7 +23,7 @@ class LoginForm extends Component {
         <form>
           <InputTextField fieldName="Email" placeholder="Email" value={email} onChange={loginFormUpdate}/>
           <InputTextField type="password" placeholder="Password" fieldName="Password" value={password} onChange={loginFormUpdate}/>
-          <button className="btn btn-default" onClick={this.onButtonPress.bind(this)}>Login</button>
+          <Link onClick={this.onButtonPress.bind(this)} className="btn btn-default">Login</Link>
         </form>
       </div>
     );

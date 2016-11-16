@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { browserHistory } from 'react-router';
 import {
   LOGIN_FORM_UPDATE,
   LOGIN_USER_SUCCESS,
@@ -35,10 +36,16 @@ export const loginUser = ({ email, password }) => {
     dispatch({ type: LOGIN_USER_BEGIN });
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
+      .then(user => {
+        loginUserSuccess(dispatch, user);
+        browserHistory.push('/agencies');
+      })
       .catch(() => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
+          .then(user => {
+            loginUserSuccess(dispatch, user);
+            browserHistory.push('/agencies');
+          })
           .catch(() => loginUserFail(dispatch));
       });
   };
