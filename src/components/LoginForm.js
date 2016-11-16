@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './LoginForm.css';
 import { loginFormUpdate, loginUser } from '../actions';
+import { InputTextField } from './common';
 
 class LoginForm extends Component {
   onButtonPress(event) {
@@ -19,28 +20,8 @@ class LoginForm extends Component {
     return (
       <div className="login-form">
         <form>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Email"
-              value={email}
-              onChange={(event) => loginFormUpdate('email', event.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(event) => loginFormUpdate('password', event.target.value)}
-            />
-          </div>
+          <InputTextField fieldName="Email" placeholder="Email" value={email} onChange={loginFormUpdate}/>
+          <InputTextField type="password" placeholder="Password" fieldName="Password" value={password} onChange={loginFormUpdate}/>
           <button className="btn btn-default" onClick={this.onButtonPress.bind(this)}>Login</button>
         </form>
       </div>
