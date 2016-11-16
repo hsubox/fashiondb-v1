@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
+import * as asyncInitialState from 'redux-async-initial-state';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
@@ -9,7 +10,9 @@ import MainLayout from './components/MainLayout';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import ModelsList from './components/ModelsList';
-import ModelForm from './components/ModelForm';
+import ModelAdd from './components/ModelAdd';
+import ModelEdit from './components/ModelEdit';
+import NoMatch from './components/NoMatch';
 import './App.css';
 
 class App extends Component {
@@ -24,9 +27,23 @@ class App extends Component {
 
     firebase.initializeApp(config);
   }
-
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    const reducer = asyncInitialState.outerReducer(reducers);
+
+    const loadStore = (currentState) => {
+      return new Promise(resolve => {
+        firebase.database().ref(`/models`)
+          .once('value', snapshot => {
+            resolve({
+              ...currentState,
+              models: snapshot.val()
+            });
+          });
+      });
+    }
+
+    const store = createStore(reducer, {}, applyMiddleware(ReduxThunk, asyncInitialState.middleware(loadStore)));
+    
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
@@ -34,7 +51,9 @@ class App extends Component {
             <Route path="/" component={Home} />
             <Route path="/login" component={LoginForm} />
             <Route path="/models" component={ModelsList} />
-            <Route path="/models/new" component={ModelForm} />
+            <Route path="/models/new" component={ModelAdd} />
+            <Route path="/models/edit/:modelId" component={ModelEdit} />
+            <Route path="*" component={NoMatch} />
           </Route>
         </Router>
       </Provider>

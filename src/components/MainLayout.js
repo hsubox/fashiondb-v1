@@ -30,22 +30,22 @@ class MainLayout extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="#">FashionDB</a>
+              <Link to="/" className="navbar-brand">FashionDB</Link>
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
                 <li><Link to="/models">Models</Link></li>
-                <li><Link to="/models">Agencies</Link></li>
+                <li><Link to="/agencies">Agencies</Link></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 {this.loggedInUser()}
               </ul>
-              <form className="navbar-form navbar-right">
+              {/*<form className="navbar-form navbar-right">
                 <div className="form-group">
                   <input type="text" className="form-control" placeholder="Search" />
                 </div>
-                <button type="submit" className="btn btn-default">Submit</button>
-              </form>
+                <button type="submit" className="btn btn-default">Search</button>
+              </form>*/}
             </div>
           </div>
         </nav>

@@ -15,7 +15,7 @@ class ModelsList extends Component {
       <div id="modelsList">
         <ul>
           {models.map(model => {
-            return <li key={model.uid}>{model.name}</li>;
+            return <li key={model.uid}><Link to={`/models/edit/${model.uid}`}>{model.name}</Link></li>;
           })}
           <li><Link to="/models/new">Add</Link></li>
         </ul>

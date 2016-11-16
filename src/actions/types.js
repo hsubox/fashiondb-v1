@@ -7,4 +7,5 @@ export const LOGOUT_USER_FAIL = 'logout_user_fail';
 export const LOGOUT_USER_BEGIN = 'logout_user_begin';
 export const MODEL_FORM_UPDATE = 'model_form_update';
 export const MODEL_CREATE = 'model_create';
+export const MODEL_SAVE_SUCCESS = 'model_save_success';
 export const MODELS_FETCH_SUCCESS = 'models_fetch_success';

@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { modelFormUpdate, modelCreate } from '../actions';
+import { modelFormUpdate, modelEdit, modelDelete } from '../actions';
 import { InputTextField, InputSelectionField, InputTextareaField } from './common'
 import races from '../data/races.js';
 import nationalities from '../data/nationalities.js';
@@ -10,8 +11,14 @@ const agencies = [{
   "code": "N/A"
 }];
 
-class ModelForm extends Component {
-  onButtonPress(event) {
+class ModelEdit extends Component {
+  componentWillMount() {
+    _.each(this.props.models[this.props.params.modelId], (value, prop) => {
+      this.props.modelFormUpdate(prop, value);
+    });
+  }
+
+  onSavePress(event) {
     event.preventDefault();
     const {
       name,
@@ -28,7 +35,7 @@ class ModelForm extends Component {
       instagram
     } = this.props;
     if (name !== '') {
-      this.props.modelCreate({
+      this.props.modelEdit({
         name,
         gender,
         race,
@@ -41,8 +48,13 @@ class ModelForm extends Component {
         agencyParis,
         bio,
         instagram
-      });
+      }, this.props.params.modelId);
     }
+  }
+
+  onDeletePress(event) {
+    event.preventDefault();
+    this.props.modelDelete(this.props.params.modelId);
   }
 
   render() {
@@ -76,18 +88,48 @@ class ModelForm extends Component {
           <InputSelectionField fieldName="Paris Agency" dbName="agencyParis" options={agencies} value={agencyParis} onChange={modelFormUpdate} />
           <InputTextareaField fieldName="Bio" value={bio} onChange={modelFormUpdate} />
           <InputTextField type="url" fieldName="Instagram" placeholder="https://www.instagram.com/username/" value={instagram} onChange={modelFormUpdate} />
-          <button className="btn btn-default" onClick={this.onButtonPress.bind(this)}>Add</button>
         </form>
+        <button className="btn btn-default" onClick={this.onSavePress.bind(this)}>Save</button>
+        <button className="btn btn-danger" onClick={this.onDeletePress.bind(this)}>Delete</button>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ modelForm }) => {
-  return modelForm;
+const mapStateToProps = ({ modelForm, models }) => {
+  const {
+    name,
+    gender,
+    race,
+    birthdate,
+    nationality,
+    agencyMother,
+    agencyNewYork,
+    agencyLondon,
+    agencyMilan,
+    agencyParis,
+    bio,
+    instagram
+  } = modelForm;
+  return {
+    name,
+    gender,
+    race,
+    birthdate,
+    nationality,
+    agencyMother,
+    agencyNewYork,
+    agencyLondon,
+    agencyMilan,
+    agencyParis,
+    bio,
+    instagram,
+    models
+  };
 };
 
 export default connect(mapStateToProps, {
   modelFormUpdate,
-  modelCreate
-})(ModelForm);
+  modelEdit,
+  modelDelete
+})(ModelEdit);
