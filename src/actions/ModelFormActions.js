@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { browserHistory } from 'react-router';
 import {
   MODEL_FORM_UPDATE,
   MODEL_CREATE
@@ -18,6 +19,7 @@ export const modelCreate = (params) => {
       .push(params)
       .then(() => {
         dispatch({ type: MODEL_CREATE });
+        browserHistory.push('/models');
       });
   };
 };

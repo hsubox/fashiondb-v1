@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { modelUpdate, modelCreate } from '../actions';
+import { modelFormUpdate, modelCreate } from '../actions';
 import { InputTextField, InputSelectionField, InputTextareaField } from './common'
 import races from '../data/races.js';
 import nationalities from '../data/nationalities.js';
@@ -59,23 +59,23 @@ class ModelForm extends Component {
       agencyParis,
       bio,
       instagram,
-      modelUpdate
+      modelFormUpdate
     } = this.props;
     return (
       <div className="model-form">
         <form>
-          <InputTextField fieldName="Name" placeholder="Karlie Kloss" value={name} onChange={modelUpdate} />
-          <InputSelectionField fieldName="Gender" options={genders} value={gender} onChange={modelUpdate} />
-          <InputSelectionField fieldName="Race" options={races} value={race} onChange={modelUpdate} />
-          <InputTextField type="date" fieldName="Birthdate" value={birthdate} onChange={modelUpdate} />
-          <InputSelectionField fieldName="Nationality" options={nationalities} value={nationality} onChange={modelUpdate} />
-          <InputSelectionField fieldName="Mother Agency" dbName="agencyMother" options={agencies} value={agencyMother} onChange={modelUpdate} />
-          <InputSelectionField fieldName="New York Agency" dbName="agencyNewYork" options={agencies} value={agencyNewYork} onChange={modelUpdate} />
-          <InputSelectionField fieldName="London Agency" dbName="agencyLondon" options={agencies} value={agencyLondon} onChange={modelUpdate} />
-          <InputSelectionField fieldName="Milan Agency" dbName="agencyMilan" options={agencies} value={agencyMilan} onChange={modelUpdate} />
-          <InputSelectionField fieldName="Paris Agency" dbName="agencyParis" options={agencies} value={agencyParis} onChange={modelUpdate} />
-          <InputTextareaField fieldName="Bio" value={bio} onChange={modelUpdate} />
-          <InputTextField type="url" fieldName="Instagram" placeholder="https://www.instagram.com/username/" value={instagram} onChange={modelUpdate} />
+          <InputTextField fieldName="Name" placeholder="Karlie Kloss" value={name} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Gender" options={genders} value={gender} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Race" options={races} value={race} onChange={modelFormUpdate} />
+          <InputTextField type="date" fieldName="Birthdate" value={birthdate} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Nationality" options={nationalities} value={nationality} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Mother Agency" dbName="agencyMother" options={agencies} value={agencyMother} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="New York Agency" dbName="agencyNewYork" options={agencies} value={agencyNewYork} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="London Agency" dbName="agencyLondon" options={agencies} value={agencyLondon} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Milan Agency" dbName="agencyMilan" options={agencies} value={agencyMilan} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Paris Agency" dbName="agencyParis" options={agencies} value={agencyParis} onChange={modelFormUpdate} />
+          <InputTextareaField fieldName="Bio" value={bio} onChange={modelFormUpdate} />
+          <InputTextField type="url" fieldName="Instagram" placeholder="https://www.instagram.com/username/" value={instagram} onChange={modelFormUpdate} />
           <button className="btn btn-default" onClick={this.onButtonPress.bind(this)}>Add</button>
         </form>
       </div>
@@ -88,6 +88,6 @@ const mapStateToProps = ({ modelForm }) => {
 };
 
 export default connect(mapStateToProps, {
-  modelUpdate,
+  modelFormUpdate,
   modelCreate
 })(ModelForm);
