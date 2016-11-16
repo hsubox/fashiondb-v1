@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import './MainLayout.css';
-import { logoutUser } from '../actions';
+import { logoutUser, modelsFetch } from '../actions';
 
 class MainLayout extends Component {
+  componentWillMount() {
+    this.props.modelsFetch();
+  }
+
   onLogoutPress() {
     event.preventDefault();
     this.props.logoutUser();
@@ -62,4 +66,4 @@ const mapStateToProps = ({ auth }) => {
   return { user };
 };
 
-export default connect(mapStateToProps, { logoutUser })(MainLayout);
+export default connect(mapStateToProps, { logoutUser, modelsFetch })(MainLayout);

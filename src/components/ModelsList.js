@@ -2,13 +2,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { modelsFetch } from '../actions';
 
 class ModelsList extends Component {
-  componentWillMount() {
-    this.props.modelsFetch();
-  }
-
   render() {
     const { models } = this.props;
     return (
@@ -31,4 +26,4 @@ const mapStateToProps = state => {
   return { models };
 };
 
-export default connect(mapStateToProps, { modelsFetch })(ModelsList);
+export default connect(mapStateToProps)(ModelsList);
