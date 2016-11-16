@@ -6,10 +6,6 @@ import { InputTextField, InputSelectionField, InputTextareaField } from './commo
 import races from '../data/races.js';
 import nationalities from '../data/nationalities.js';
 import genders from '../data/genders.js';
-const agencies = [{
-  "name": "N/A",
-  "code": "N/A"
-}];
 
 class ModelEdit extends Component {
   componentWillMount() {
@@ -71,7 +67,8 @@ class ModelEdit extends Component {
       agencyParis,
       bio,
       instagram,
-      modelFormUpdate
+      modelFormUpdate,
+      agencies_mod
     } = this.props;
     return (
       <div className="model-form">
@@ -81,11 +78,11 @@ class ModelEdit extends Component {
           <InputSelectionField fieldName="Race" options={races} value={race} onChange={modelFormUpdate} />
           <InputTextField type="date" fieldName="Birthdate" value={birthdate} onChange={modelFormUpdate} />
           <InputSelectionField fieldName="Nationality" options={nationalities} value={nationality} onChange={modelFormUpdate} />
-          <InputSelectionField fieldName="Mother Agency" dbName="agencyMother" options={agencies} value={agencyMother} onChange={modelFormUpdate} />
-          <InputSelectionField fieldName="New York Agency" dbName="agencyNewYork" options={agencies} value={agencyNewYork} onChange={modelFormUpdate} />
-          <InputSelectionField fieldName="London Agency" dbName="agencyLondon" options={agencies} value={agencyLondon} onChange={modelFormUpdate} />
-          <InputSelectionField fieldName="Milan Agency" dbName="agencyMilan" options={agencies} value={agencyMilan} onChange={modelFormUpdate} />
-          <InputSelectionField fieldName="Paris Agency" dbName="agencyParis" options={agencies} value={agencyParis} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Mother Agency" dbName="agencyMother" options={agencies_mod} value={agencyMother} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="New York Agency" dbName="agencyNewYork" options={agencies_mod} value={agencyNewYork} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="London Agency" dbName="agencyLondon" options={agencies_mod} value={agencyLondon} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Milan Agency" dbName="agencyMilan" options={agencies_mod} value={agencyMilan} onChange={modelFormUpdate} />
+          <InputSelectionField fieldName="Paris Agency" dbName="agencyParis" options={agencies_mod} value={agencyParis} onChange={modelFormUpdate} />
           <InputTextareaField fieldName="Bio" value={bio} onChange={modelFormUpdate} />
           <InputTextField type="url" fieldName="Instagram" placeholder="https://www.instagram.com/username/" value={instagram} onChange={modelFormUpdate} />
         </form>
@@ -96,35 +93,17 @@ class ModelEdit extends Component {
   }
 }
 
-const mapStateToProps = ({ modelForm, models }) => {
-  const {
-    name,
-    gender,
-    race,
-    birthdate,
-    nationality,
-    agencyMother,
-    agencyNewYork,
-    agencyLondon,
-    agencyMilan,
-    agencyParis,
-    bio,
-    instagram
-  } = modelForm;
+const mapStateToProps = ({ modelForm, models, agencies }) => {
+  const agencies_mod = _.map(agencies, (val, uid) => {
+    return { name: val.name, code: uid };
+  }).concat({
+    name: 'N/A',
+    code: 'N/A'
+  });
   return {
-    name,
-    gender,
-    race,
-    birthdate,
-    nationality,
-    agencyMother,
-    agencyNewYork,
-    agencyLondon,
-    agencyMilan,
-    agencyParis,
-    bio,
-    instagram,
-    models
+    ...modelForm,
+    models,
+    agencies_mod
   };
 };
 

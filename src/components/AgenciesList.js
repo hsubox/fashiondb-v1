@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 class AgenciesList extends Component {
   render() {
     const { agencies } = this.props;
-    console.log(agencies);
     return (
       <div id="agenciesList">
         <ul>
