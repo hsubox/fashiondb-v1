@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 import {
-  EMAIL_CHANGED,
-  PASSWORD_CHANGED,
+  LOGIN_FORM_UPDATE,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER_BEGIN,
@@ -10,17 +9,11 @@ import {
   LOGOUT_USER_BEGIN
 } from './types';
 
-export const emailChanged = (text) => {
+export const loginFormUpdate = (field, value) => {
   return {
-    type: EMAIL_CHANGED,
-    payload: text
-  };
-};
-
-export const passwordChanged = (text) => {
-  return {
-    type: PASSWORD_CHANGED,
-    payload: text
+    type: LOGIN_FORM_UPDATE,
+    field,
+    value
   };
 };
 
@@ -33,7 +26,7 @@ const loginUserFail = (dispatch) => {
 const loginUserSuccess = (dispatch, user) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
-    payload: user
+    user
   });
 };
 

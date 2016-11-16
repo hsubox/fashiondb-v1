@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './LoginForm.css';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { loginFormUpdate, loginUser } from '../actions';
 
 class LoginForm extends Component {
-  onEmailChange(event) {
-    this.props.emailChanged(event.target.value);
-  }
-
-  onPasswordChange(event) {
-    this.props.passwordChanged(event.target.value);
-  }
-
   onButtonPress(event) {
     event.preventDefault();
     const { email, password } = this.props;
@@ -19,6 +11,11 @@ class LoginForm extends Component {
   }
 
   render() {
+    const {
+      email,
+      password,
+      loginFormUpdate
+    } = this.props;
     return (
       <div className="login-form">
         <form>
@@ -29,8 +26,8 @@ class LoginForm extends Component {
               className="form-control"
               id="email"
               placeholder="Email"
-              value={this.props.email}
-              onChange={this.onEmailChange.bind(this)}
+              value={email}
+              onChange={(event) => loginFormUpdate('email', event.target.value)}
             />
           </div>
           <div className="form-group">
@@ -40,8 +37,8 @@ class LoginForm extends Component {
               className="form-control"
               id="password"
               placeholder="Password"
-              value={this.props.password}
-              onChange={this.onPasswordChange.bind(this)}
+              value={password}
+              onChange={(event) => loginFormUpdate('password', event.target.value)}
             />
           </div>
           <button className="btn btn-default" onClick={this.onButtonPress.bind(this)}>Login</button>
@@ -57,7 +54,6 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged,
-  passwordChanged,
+  loginFormUpdate,
   loginUser
 })(LoginForm);
