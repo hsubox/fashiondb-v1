@@ -8,6 +8,7 @@ import reducers from './reducers';
 import MainLayout from './components/MainLayout';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
+import ModelForm from './components/ModelForm';
 import './App.css';
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
           <Route component={MainLayout}>
             <Route path="/" component={Home} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/models" component={ModelForm} />
           </Route>
         </Router>
       </Provider>
