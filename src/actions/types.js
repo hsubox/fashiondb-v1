@@ -5,5 +5,5 @@ export const LOGIN_USER_BEGIN = 'login_user_begin';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_FAIL = 'logout_user_fail';
 export const LOGOUT_USER_BEGIN = 'logout_user_begin';
-export const MODEL_UPDATE = 'model_update';
+export const MODEL_FORM_UPDATE = 'model_form_update';
 export const MODEL_CREATE = 'model_create';

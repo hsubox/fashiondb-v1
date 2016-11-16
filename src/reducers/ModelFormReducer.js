@@ -1,5 +1,5 @@
 import {
-  MODEL_UPDATE,
+  MODEL_FORM_UPDATE,
   MODEL_CREATE
 } from '../actions/types';
 
@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case MODEL_UPDATE:
+    case MODEL_FORM_UPDATE:
       return { ...state, [action.field]: action.value };
     case MODEL_CREATE:
       return { ...state, ...INITIAL_STATE };

@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 import {
-  MODEL_UPDATE,
+  MODEL_FORM_UPDATE,
   MODEL_CREATE
 } from './types';
 
-export const modelUpdate = (field, value) => {
+export const modelFormUpdate = (field, value) => {
   return {
-    type: MODEL_UPDATE,
+    type: MODEL_FORM_UPDATE,
     field,
     value
   };
