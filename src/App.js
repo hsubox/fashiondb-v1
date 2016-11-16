@@ -13,6 +13,9 @@ import ModelsList from './components/ModelsList';
 import ModelAdd from './components/ModelAdd';
 import ModelEdit from './components/ModelEdit';
 import NoMatch from './components/NoMatch';
+import AgenciesList from './components/AgenciesList';
+import AgencyAdd from './components/AgencyAdd';
+import AgencyEdit from './components/AgencyEdit';
 import './App.css';
 
 class App extends Component {
@@ -32,18 +35,19 @@ class App extends Component {
 
     const loadStore = (currentState) => {
       return new Promise(resolve => {
-        firebase.database().ref(`/models`)
+        firebase.database().ref(`/`)
           .once('value', snapshot => {
             resolve({
               ...currentState,
-              models: snapshot.val()
+              models: snapshot.val().models,
+              agencies: snapshot.val().agencies
             });
           });
       });
     }
 
     const store = createStore(reducer, {}, applyMiddleware(ReduxThunk, asyncInitialState.middleware(loadStore)));
-    
+
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
@@ -53,6 +57,9 @@ class App extends Component {
             <Route path="/models" component={ModelsList} />
             <Route path="/models/new" component={ModelAdd} />
             <Route path="/models/edit/:modelId" component={ModelEdit} />
+            <Route path="/agencies" component={AgenciesList} />
+            <Route path="/agencies/new" component={AgencyAdd} />
+            <Route path="/agencies/edit/:modelId" component={AgencyEdit} />
             <Route path="*" component={NoMatch} />
           </Route>
         </Router>
